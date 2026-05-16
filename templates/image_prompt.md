@@ -4,6 +4,9 @@ Mode: {{mode}}
 Screen: {{screen_name}}
 Provider: {{provider}}
 
+## Source Image Decision
+{{source_context}}
+
 ## Goal
 {{goal}}
 

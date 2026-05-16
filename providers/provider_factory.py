@@ -7,6 +7,7 @@ from typing import Any
 from .agent_handoff_provider import AgentHandoffProvider
 from .base_provider import ImageProvider, ProviderError
 from .command_provider import CommandProvider
+from .codex_handoff_provider import CodexHandoffProvider
 from .generic_http_provider import GenericHttpProvider
 from .manual_provider import ManualProvider
 from .openai_provider import OpenAIProvider
@@ -14,6 +15,7 @@ from .openai_provider import OpenAIProvider
 
 PROVIDER_CLASSES: dict[str, type[ImageProvider]] = {
     "openai": OpenAIProvider,
+    "codex_handoff": CodexHandoffProvider,
     "manual": ManualProvider,
     "agent_handoff": AgentHandoffProvider,
     "generic_http": GenericHttpProvider,

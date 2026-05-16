@@ -4,6 +4,11 @@
   "screen_name": "AI Playlist Builder",
   "goal": "Repair the playlist insight module while preserving the rest of the approved UI screen.",
   "output_dir": "runs/module-repair-example",
+  "source": {
+    "type": "uploaded_anchor",
+    "image_path": "",
+    "notes": "Set image_path to the approved original screen when the user uploads or provides one. Leave empty for prompt-only handoff examples."
+  },
   "base_image": "",
   "anchor_image": "",
   "target_module": {

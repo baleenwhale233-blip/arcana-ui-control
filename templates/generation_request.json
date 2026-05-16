@@ -4,6 +4,11 @@
   "screen_name": "Example Screen",
   "goal": "Repair one UI module while preserving the approved surrounding screen.",
   "output_dir": "runs/example-iteration",
+  "source": {
+    "type": "uploaded_anchor",
+    "image_path": "",
+    "notes": "Use codex_image_seed when Codex/image2 should generate the original screen first."
+  },
   "base_image": "",
   "anchor_image": "",
   "mask": "",

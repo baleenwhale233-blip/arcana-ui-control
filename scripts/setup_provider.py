@@ -34,8 +34,13 @@ Manual fallback always works without network or API keys:
 
   python scripts/generate_iteration.py --request examples/module_repair_request.example.json --provider manual
 
+Codex handoff is best when you are already inside Codex and want built-in image generation:
+
+  python scripts/generate_iteration.py --request examples/module_repair_request.example.json --provider codex_handoff
+
 Other provider choices:
 
+  codex_handoff  writes CODEX_IMAGE_HANDOFF.md for Codex built-in image generation
   agent_handoff   writes AGENT_HANDOFF.md for another agent
   generic_http    posts prompt JSON to a configured endpoint
   command         runs a configured local CLI command

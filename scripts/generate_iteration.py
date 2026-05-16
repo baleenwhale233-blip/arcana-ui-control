@@ -104,6 +104,7 @@ def compile_prompt(request: dict[str, Any], provider_name: str) -> str:
         "mode": request.get("mode", "module_repair"),
         "screen_name": request.get("screen_name", "Unnamed Screen"),
         "provider": provider_name,
+        "source_context": render_value(request.get("source", default_source_context(request))),
         "goal": request.get("goal", "Generate a controlled UI image iteration."),
         "target_module": render_value(request.get("target_module", "No target module provided.")),
         "change_ticket": render_value(request.get("change_ticket", "No change ticket provided.")),
@@ -132,7 +133,7 @@ def run_provider(
 ) -> dict[str, Any]:
     provider = create_provider(provider_name, config)
     options = request.get("options") or {}
-    base_image = resolve_input_path(request.get("base_image"), request_path)
+    base_image = resolve_input_path(request.get("base_image") or source_image_for_edit(request), request_path)
     mask = resolve_input_path(request.get("mask"), request_path)
     region = request.get("region") or (request.get("target_module") or {}).get("bounds")
 
@@ -161,7 +162,7 @@ def write_audit_if_possible(
     request_path: Path,
 ) -> Path | None:
     audit_path = output_dir / "regression_audit.md"
-    anchor = resolve_input_path(request.get("anchor_image"), request_path)
+    anchor = resolve_input_path(request.get("anchor_image") or source_image_for_anchor(request), request_path)
     image_path = result.get("image_path")
 
     if not anchor:
@@ -231,6 +232,7 @@ def write_metadata(
     metadata = {
         "created_at": datetime.now(timezone.utc).isoformat(),
         "mode": request.get("mode"),
+        "source": request.get("source"),
         "provider": provider_name,
         "provider_source": provider_source,
         "fallback_reason": fallback_reason,
@@ -242,6 +244,34 @@ def write_metadata(
         json.dumps(metadata, indent=2, ensure_ascii=False),
         encoding="utf-8",
     )
+
+
+def default_source_context(request: dict[str, Any]) -> dict[str, Any]:
+    if request.get("base_image") or request.get("anchor_image"):
+        return {
+            "type": "uploaded_anchor",
+            "image_path": request.get("base_image") or request.get("anchor_image"),
+            "notes": "Existing image path supplied by request.",
+        }
+    return {
+        "type": "codex_image_seed",
+        "image_path": "",
+        "notes": "Generate the first UI image, then accept one result as the anchor.",
+    }
+
+
+def source_image_for_edit(request: dict[str, Any]) -> str | None:
+    source = request.get("source") or {}
+    if source.get("type") in {"uploaded_anchor", "existing_anchor"}:
+        return source.get("image_path")
+    return None
+
+
+def source_image_for_anchor(request: dict[str, Any]) -> str | None:
+    source = request.get("source") or {}
+    if source.get("type") in {"uploaded_anchor", "existing_anchor"}:
+        return source.get("image_path")
+    return None
 
 
 if __name__ == "__main__":

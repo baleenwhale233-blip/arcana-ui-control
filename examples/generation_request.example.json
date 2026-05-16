@@ -4,6 +4,11 @@
   "screen_name": "AI Playlist Builder",
   "goal": "Generate a polished first-pass UI direction for a music playlist creation tool.",
   "output_dir": "runs/concept-example",
+  "source": {
+    "type": "codex_image_seed",
+    "image_path": "",
+    "notes": "Use Codex/image2 to create the original screen, then accept one result as the anchor."
+  },
   "base_image": "",
   "anchor_image": "",
   "target_module": {

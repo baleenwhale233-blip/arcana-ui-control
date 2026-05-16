@@ -13,10 +13,17 @@ This project is intentionally not an MCP server, REST API, database, web app, or
 The intended loop is:
 
 ```text
-observe -> freeze -> diagnose -> propose -> choose provider -> generate -> audit -> accept/reject -> archive
+choose source -> observe -> freeze -> diagnose -> propose -> choose provider -> generate -> audit -> accept/reject -> archive
 ```
 
 The approved screen state should be explicit in `screen_manifest.json`, `locked_invariants.md`, `design_dna.md`, and iteration logs. Never depend on hidden conversation memory.
+
+The first decision is how the original screen enters the workflow:
+
+- `codex_image_seed`: generate the first image directly in Codex with built-in image generation.
+- `uploaded_anchor`: use a user-provided image as the approved anchor.
+- `provider_seed`: generate the first image through a configured provider.
+- `manual_seed`: write a handoff package for a human-operated image tool.
 
 ## Providers
 
@@ -28,6 +35,7 @@ Image generation is interchangeable. Providers implement:
 Available providers:
 
 - `openai`: recommended default when configured.
+- `codex_handoff`: writes a package for Codex built-in image generation.
 - `manual`: writes a package for a human to paste into any image tool.
 - `agent_handoff`: writes `AGENT_HANDOFF.md` for another agent.
 - `generic_http`: posts JSON to a custom HTTP image service.
@@ -54,6 +62,12 @@ If OpenAI is selected explicitly and is not configured, the script fails with cl
 ```bash
 python scripts/setup_provider.py
 python scripts/generate_iteration.py --request examples/module_repair_request.example.json --provider manual
+```
+
+When already working inside Codex, use Codex handoff to prepare a prompt package for the built-in image tool without needing a local API key:
+
+```bash
+python scripts/generate_iteration.py --request examples/module_repair_request.example.json --provider codex_handoff
 ```
 
 Expected output:

@@ -7,6 +7,7 @@
       "quality": "medium",
       "output_format": "png"
     },
+    "codex_handoff": {},
     "manual": {},
     "agent_handoff": {},
     "generic_http": {
