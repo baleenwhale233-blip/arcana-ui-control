@@ -1,0 +1,22 @@
+{
+  "default_provider": "openai",
+  "providers": {
+    "openai": {
+      "model": "gpt-image-1.5",
+      "size": "1536x1024",
+      "quality": "medium",
+      "output_format": "png"
+    },
+    "manual": {},
+    "agent_handoff": {},
+    "generic_http": {
+      "endpoint": "",
+      "api_key": "",
+      "timeout_seconds": 120
+    },
+    "command": {
+      "command": "",
+      "expected_output": "candidate.png"
+    }
+  }
+}

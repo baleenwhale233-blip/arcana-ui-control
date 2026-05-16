@@ -1,0 +1,44 @@
+{
+  "mode": "concept",
+  "provider": "manual",
+  "screen_name": "AI Playlist Builder",
+  "goal": "Generate a polished first-pass UI direction for a music playlist creation tool.",
+  "output_dir": "runs/concept-example",
+  "base_image": "",
+  "anchor_image": "",
+  "target_module": {
+    "name": "Full screen concept",
+    "bounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 1024
+    }
+  },
+  "change_ticket": {
+    "problem": "Need a first visual direction with strong hierarchy and clear workflow.",
+    "allowed_changes": [
+      "Create the full screen",
+      "Propose layout, typography, and component rhythm"
+    ],
+    "locked_changes": [
+      "Do not make a marketing landing page",
+      "Do not use decorative gradient blobs"
+    ]
+  },
+  "design_dna": {
+    "summary": "Focused creative tool UI with visible track controls, playlist context, and crisp production quality."
+  },
+  "locked_regions": [],
+  "output_requirements": [
+    "Return one complete UI screen image.",
+    "Use a practical app interface as the first screen.",
+    "Keep text legible and controls recognizable."
+  ],
+  "options": {
+    "model": "gpt-image-1.5",
+    "size": "1536x1024",
+    "quality": "medium",
+    "output_format": "png"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "mode": "module_repair",
+  "provider": "manual",
+  "screen_name": "AI Playlist Builder",
+  "goal": "Repair the playlist insight module while preserving the rest of the approved UI screen.",
+  "output_dir": "runs/module-repair-example",
+  "base_image": "",
+  "anchor_image": "",
+  "target_module": {
+    "name": "Playlist Insight Panel",
+    "bounds": {
+      "x": 884,
+      "y": 176,
+      "width": 428,
+      "height": 392
+    }
+  },
+  "change_ticket": {
+    "problem": "The panel feels visually flat, spacing is uneven, and the hierarchy between insight summary, tags, and action controls is weak.",
+    "allowed_changes": [
+      "Improve spacing and alignment inside the target panel",
+      "Clarify the hierarchy of summary, tags, metrics, and actions",
+      "Polish typography and component quality within the target panel"
+    ],
+    "locked_changes": [
+      "Do not change the sidebar",
+      "Do not change the top navigation",
+      "Do not move the track list",
+      "Do not add or remove major app modules",
+      "Do not change the overall canvas size or information architecture"
+    ]
+  },
+  "design_dna": {
+    "summary": "Codex-first production UI: calm, precise, useful, with restrained color, crisp typography, compact controls, and clear scan paths.",
+    "colors": [
+      "near-white surface",
+      "charcoal text",
+      "muted teal accent",
+      "soft amber warning/accent only where meaningful"
+    ],
+    "shape": "8px radius or less, no pill-heavy decoration",
+    "density": "desktop tool density, not marketing spacing"
+  },
+  "locked_regions": [
+    {
+      "name": "Top navigation",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 88
+      },
+      "reason": "Approved anchor structure"
+    },
+    {
+      "name": "Sidebar",
+      "bounds": {
+        "x": 0,
+        "y": 88,
+        "width": 264,
+        "height": 936
+      },
+      "reason": "Should not drift during module repair"
+    },
+    {
+      "name": "Track list",
+      "bounds": {
+        "x": 304,
+        "y": 176,
+        "width": 532,
+        "height": 672
+      },
+      "reason": "Approved content and layout"
+    }
+  ],
+  "output_requirements": [
+    "Return one polished UI screen image.",
+    "The target panel should look improved and production-ready.",
+    "All locked regions should remain visually unchanged.",
+    "Preserve the same screen composition and information architecture."
+  ],
+  "options": {
+    "model": "gpt-image-1.5",
+    "size": "1536x1024",
+    "quality": "medium",
+    "output_format": "png"
+  }
+}

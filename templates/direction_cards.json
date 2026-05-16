@@ -1,0 +1,26 @@
+{
+  "directions": [
+    {
+      "id": "direction_a",
+      "name": "Clear Operational UI",
+      "best_for": "Dashboards, editors, admin tools, and repeated workflows",
+      "visual_notes": [
+        "restrained palette",
+        "dense but breathable layout",
+        "clear controls and hierarchy"
+      ],
+      "risk": "Can feel generic if brand signals are too weak"
+    },
+    {
+      "id": "direction_b",
+      "name": "Editorial Product UI",
+      "best_for": "Premium content, portfolio, launches, and guided experiences",
+      "visual_notes": [
+        "strong type hierarchy",
+        "large real product imagery",
+        "intentional section rhythm"
+      ],
+      "risk": "Can over-style functional workflows"
+    }
+  ]
+}

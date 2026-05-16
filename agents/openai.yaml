@@ -1,0 +1,3 @@
+display_name: Arcana UI Creative Control
+short_description: Controlled UI image generation with locked regions, provider adapters, and audit artifacts.
+default_prompt: Use this skill to generate or refine UI images through explicit briefs, locked invariants, change tickets, provider selection, audits, and archives.

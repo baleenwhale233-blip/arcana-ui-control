@@ -1,0 +1,35 @@
+{
+  "screen_id": "screen-name",
+  "screen_name": "Screen Name",
+  "approved_anchor_image": "",
+  "canvas": {
+    "width": 1440,
+    "height": 1024
+  },
+  "modules": [
+    {
+      "id": "target-module",
+      "name": "Target Module",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 400,
+        "height": 300
+      },
+      "status": "editable"
+    }
+  ],
+  "locked_regions": [
+    {
+      "id": "nav",
+      "name": "Navigation",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 80
+      },
+      "reason": "Approved anchor region"
+    }
+  ]
+}

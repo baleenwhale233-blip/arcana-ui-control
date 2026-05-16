@@ -1,0 +1,57 @@
+{
+  "mode": "module_repair",
+  "provider": "manual",
+  "screen_name": "Example Screen",
+  "goal": "Repair one UI module while preserving the approved surrounding screen.",
+  "output_dir": "runs/example-iteration",
+  "base_image": "",
+  "anchor_image": "",
+  "mask": "",
+  "target_module": {
+    "name": "Target Module",
+    "bounds": {
+      "x": 96,
+      "y": 180,
+      "width": 520,
+      "height": 360
+    }
+  },
+  "change_ticket": {
+    "problem": "The target module has weak hierarchy and inconsistent spacing.",
+    "allowed_changes": [
+      "Improve hierarchy",
+      "Improve spacing",
+      "Polish typography"
+    ],
+    "locked_changes": [
+      "Do not change navigation",
+      "Do not alter surrounding modules",
+      "Do not change information architecture"
+    ]
+  },
+  "design_dna": {
+    "summary": "Quiet, precise, production-grade interface with restrained color and clear controls."
+  },
+  "locked_regions": [
+    {
+      "name": "Navigation",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 80
+      }
+    }
+  ],
+  "output_requirements": [
+    "Return one polished UI screen image.",
+    "Maintain the same canvas and composition.",
+    "Make the intended target module visibly better."
+  ],
+  "options": {
+    "model": "gpt-image-1.5",
+    "size": "1536x1024",
+    "quality": "medium",
+    "output_format": "png"
+  }
+}
