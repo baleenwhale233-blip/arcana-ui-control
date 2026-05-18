@@ -91,4 +91,15 @@ After accepting an output, archive it with:
 python scripts/archive_iteration.py --run runs/module-repair-example --status accepted
 ```
 
-Keep rejected iterations too. They are useful regression evidence.
+If the run contains `candidate.png`, accepted runs also update `active/active_state.json` and copy the candidate to `active/anchor.png`. To keep the workspace clean after the archive succeeds:
+
+```bash
+python scripts/archive_iteration.py --run runs/module-repair-example --status accepted --cleanup-run
+```
+
+Lifecycle rule:
+
+- Keep `active/` small: current anchor, active state, and last accepted request.
+- Keep full prompt, metadata, handoff, audit, and candidate evidence in `archives/`.
+- Let `generate_iteration.py` clean stale generated artifacts before each run. Use `--keep-existing-output` only when intentionally preserving files.
+- Clean `runs/...` only after archiving. Rejected iterations can be archived too because they are useful regression evidence.

@@ -75,8 +75,32 @@ Expected output:
 - output directory created
 - compiled `image_prompt.md`
 - copied `generation_request.json`
-- `MANUAL_HANDOFF.md`
+- `MANUAL_HANDOFF.md` or `CODEX_IMAGE_HANDOFF.md`
 - `generation_metadata.json`
+
+## State Lifecycle
+
+The project separates active state from iteration evidence:
+
+- `active/`: current approved anchor, `active_state.json`, and `last_accepted_request.json`.
+- `runs/`: current working iterations.
+- `archives/`: complete historical evidence for accepted, rejected, or superseded runs.
+
+`generate_iteration.py` clears known generated artifacts from the target run directory before writing a new run, so old handoff files and stale `candidate.*` images do not contaminate the next archive. Use `--keep-existing-output` only when you intentionally want to preserve existing files in that run directory.
+
+After an image is accepted, archive the run:
+
+```bash
+python scripts/archive_iteration.py --run runs/module-repair-example --status accepted
+```
+
+If the run contains `candidate.png`, this updates `active/anchor.png` and `active/active_state.json`.
+
+To remove the original run after safely archiving it:
+
+```bash
+python scripts/archive_iteration.py --run runs/module-repair-example --status accepted --cleanup-run
+```
 
 ## Custom Providers
 

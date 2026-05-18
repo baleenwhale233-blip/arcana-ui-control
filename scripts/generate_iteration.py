@@ -19,6 +19,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Generate a controlled UI image iteration.")
     parser.add_argument("--request", required=True, help="Path to generation request JSON.")
     parser.add_argument("--provider", help="Override provider name.")
+    parser.add_argument(
+        "--keep-existing-output",
+        action="store_true",
+        help="Do not remove previous generated artifacts from the output directory before running.",
+    )
     args = parser.parse_args()
 
     request_path = Path(args.request)
@@ -31,6 +36,8 @@ def main() -> int:
 
     output_dir = resolve_output_dir(request.get("output_dir"))
     output_dir.mkdir(parents=True, exist_ok=True)
+    if not args.keep_existing_output:
+        clean_previous_run_artifacts(output_dir)
 
     prompt = compile_prompt(request, provider_name)
     prompt_path = output_dir / "image_prompt.md"
@@ -95,6 +102,32 @@ def resolve_output_dir(value: Any) -> Path:
         return path if path.is_absolute() else PROJECT_ROOT / path
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     return PROJECT_ROOT / "runs" / f"iteration-{timestamp}"
+
+
+def clean_previous_run_artifacts(output_dir: Path) -> None:
+    artifact_names = {
+        "image_prompt.md",
+        "generation_request.json",
+        "generation_metadata.json",
+        "regression_audit.md",
+        "MANUAL_HANDOFF.md",
+        "manual_prompt.txt",
+        "AGENT_HANDOFF.md",
+        "CODEX_IMAGE_HANDOFF.md",
+        "codex_image_prompt.txt",
+        "command_prompt.txt",
+        "command_stdout.txt",
+        "command_stderr.txt",
+        "comparison_summary.json",
+    }
+    for name in artifact_names:
+        path = output_dir / name
+        if path.exists() and path.is_file():
+            path.unlink()
+
+    for candidate in output_dir.glob("candidate.*"):
+        if candidate.is_file():
+            candidate.unlink()
 
 
 def compile_prompt(request: dict[str, Any], provider_name: str) -> str:
